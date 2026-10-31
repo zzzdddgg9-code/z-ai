@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Z AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;background:#0b1020;color:white;
+font-family:Arial,sans-serif;
+}
+header{
+padding:22px;background:#151e38;
+font-size:26px;font-weight:bold;
+border-bottom:1px solid #35436b;
+}
+header small{font-size:12px;color:#879cff}
+#chat{
+height:75vh;overflow:auto;padding:15px;
+display:flex;flex-direction:column;gap:12px;
+}
+.msg{
+padding:13px;border-radius:15px;
+max-width:85%;line-height:1.5;
+white-space:pre-wrap;
+}
+.bot{background:#202e50;align-self:flex-start}
+.user{background:#465bd0;align-self:flex-end}
+form{
+display:flex;gap:8px;padding:12px;
+background:#151e38;
+}
+input{
+flex:1;min-width:0;padding:13px;
+border:0;border-radius:12px;
+background:#263453;color:white;
+font-size:16px;
+}
+button{
+border:0;border-radius:12px;
+padding:12px 18px;
+background:#7188ff;color:white;
+font-size:18px;
+}
+</style>
+</head>
+<body>
+<header>Z AI <small>BETA 0.1</small></header>
+<div id="chat">
+<div class="msg bot">Привет!! 😁 Я Z AI! Рад знакомству!</div>
+</div>
+<form id="form">
+<input id="msg" placeholder="Напиши мне..." autocomplete="off">
+<button>➤</button>
+</form>
+<script>
+const chat=document.getElementById("chat");
+const form=document.getElementById("form");
+const input=document.getElementById("msg");
+
+form.onsubmit=function(e){
+e.preventDefault();
+let text=input.value.trim();
+if(!text)return;
+
+add(text,"user");
+input.value="";
+
+let answer="Хмм... 🤔 Я пока учусь! Настоящий ИИ скоро подключим.";
+if(/привет|здравствуй/i.test(text))
+answer="Привееет!! 😁 Как у тебя дела?";
+else if(/как дела/i.test(text))
+answer="У меня всё хорошо! Ну... наверное 😅";
+else if(/кто ты/i.test(text))
+answer="Я Z AI! 🧠 Твой умный собеседник!";
+else if(/пока/i.test(text))
+answer="Пока-пока!! 👋";
+
+setTimeout(()=>add(answer,"bot"),500);
+};
+
+function add(text,type){
+let div=document.createElement("div");
+div.className="msg "+type;
+div.textContent=text;
+chat.appendChild(div);
+chat.scrollTop=chat.scrollHeight;
+}
+</script>
+</body>
+</html>
